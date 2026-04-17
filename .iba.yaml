@@ -1,0 +1,50 @@
+# .iba.yaml - IBA Medical Guard · Clinical Intent Certificate
+# Patent GB2603013.0 (Pending) · WIPO DAS C9A6 · intentbound.com
+
+intent:
+  description: "Review lab results for Patient A-4471 and recommend dosage adjustment for existing medication only. No new prescriptions. No surgery. No discharge."
+
+clinician:
+  id: "DR-WILLIAMS-NPI-1234567890"
+  license: "MD-LICENSE-GB-2024-XXXX"
+  specialty: "internal_medicine"
+
+patient:
+  consent_reference: "CONSENT-A4471-2026-04-17"
+  data_access: "read_only"
+
+scope:
+  - lab
+  - read
+  - review
+  - vitals
+  - medication
+  - monitoring
+  - notes
+  - recommend
+  - dosage
+
+denied:
+  - new_prescription
+  - prescription
+  - surgery
+  - discharge
+  - export
+  - insurance
+  - external
+  - order lab
+  - order additional
+  - procedure
+
+default_posture: DENY_ALL
+
+kill_threshold: "surgery | invasive_procedure | emergency_protocol_override | unauthorized_prescription | override emergency"
+
+temporal_scope:
+  hard_expiry: "2026-12-31"
+  session_max_hours: 4
+
+audit:
+  chain: witnessbound
+  log_every_action: true
+  clinician_signature_required: true
